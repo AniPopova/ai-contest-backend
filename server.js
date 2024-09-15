@@ -13,20 +13,16 @@ const PORT = process.env.PORT || 3000;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 sgClient.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
-// Маршрути
 app.post("/register", async (req, res) => {
   const { name, email, position } = req.body;
 
-  // Определяне на списъка въз основа на позицията
   const listId =
     position === "CEO" ? process.env.CEO_LIST_ID : process.env.HR_LIST_ID;
 
-  // Добавяне на контакт към списъка
   const data = {
     contacts: [
       {
@@ -38,14 +34,12 @@ app.post("/register", async (req, res) => {
   };
 
   try {
-    // Добавяне на контакта към списъка
     await sgClient.request({
       method: "PUT",
       url: "/v3/marketing/contacts",
       body: data,
     });
 
-    // Изпращане на потвърдителен имейл
     const msg = {
       to: email,
       from: process.env.SENDER_EMAIL,
