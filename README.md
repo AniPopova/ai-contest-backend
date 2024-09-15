@@ -36,4 +36,4 @@
 1. **Клонирайте репозитория:**
 
    ```bash
-   git clone https://github.com/yourusername/networking-event-backend.git
+   git clone https://github.com/AniPopova/ai-contest-backednt.git
